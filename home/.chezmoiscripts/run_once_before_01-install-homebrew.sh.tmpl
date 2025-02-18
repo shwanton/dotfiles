@@ -12,12 +12,7 @@ if has brew; then
   exit 0
 fi
 
-HOMEBREW_PREFIX="/opt/homebrew"
-if [[ "$(uname -m)" != "arm64" ]]; then
-  HOMEBREW_PREFIX="/usr/local"
-fi
-
-if ! [[ -x "${HOMEBREW_PREFIX}"/bin/brew ]]; then
+if ! [[ -x "/opt/homebrew/bin/brew" ]]; then
   declare installer
   installer="$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
