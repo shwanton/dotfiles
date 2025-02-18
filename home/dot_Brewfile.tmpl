@@ -1,0 +1,150 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+
+{{- $taps := list
+-}}
+
+{{- $brews := list
+  "ack"
+  "cloc"
+  "direnv"
+  "duti"
+  "eza"
+  "ffmpeg"
+  "gh"
+  "git"
+  "helix"
+  "httpie"
+  "imagemagick"
+  "jq"
+  "mise"
+  "moreutils"
+  "overmind"
+  "pspg"
+  "lazygit"
+  "lf"
+  "shellcheck"
+  "tree"
+  "wget"
+  "yarn"
+-}}
+
+{{/* Dependencies for building ruby via mise */}}
+{{- $brews = concat $brews (list
+  "libyaml"
+)
+-}}
+
+{{/* Dependencies for building postgres via mise */}}
+{{- $brews = concat $brews (list
+  "curl"
+  "gcc"
+  "icu4c"
+  "ossp-uuid"
+  "readline"
+  "zlib"
+)
+-}}
+
+{{ if true -}}
+{{- $brews = concat $brews (list
+  "yt-dlp"
+)
+-}}
+{{ end -}}
+
+{{- $casks := list
+  "1password"
+  "1password-cli"
+  "android-studio"
+  "arq-cloud-backup"
+  "betterdisplay"
+  "chatgpt"
+  "cleanshot"
+  "discord"
+  "dropbox"
+  "firefox"
+  "fork"
+  "google-chrome"
+  "hammerspoon"
+  "handbrake"
+  "hazel"
+  "homerow"
+  "iina"
+  "istat-menus"
+  "iterm2"
+  "jordanbaird-ice"
+  "karabiner-elements"
+  "launchbar"
+  "lm-studio"
+  "little-snitch"
+  "ngrok"
+  "numi"
+  "obsidian"
+  "pika"
+  "raycast"
+  "rectangle-pro"
+  "superkey"
+  "transmit"
+  "visual-studio-code"
+  "vlc"
+  "xcodes"
+  "zed"
+  "zoom"
+-}}
+
+{{ if true -}}
+{{- $casks = concat $casks (list
+  "transmission"
+)
+-}}
+{{ end -}}
+
+{{/* Custom Fonts */}}
+{{- $casks = concat $casks (list
+  "font-ia-writer-duo"
+  "font-ia-writer-mono"
+  "font-ia-writer-quattro"
+  "font-comic-mono"
+  "font-fantasque-sans-mono"
+  "font-jetbrains-mono"
+) -}}
+
+{{/* QuickLook Plugins */}}
+{{- $casks = concat $casks (list
+  "qlcolorcode"
+  "qlstephen"
+  "qlvideo"
+  "quicklook-json"
+  "quicklookase"
+  "suspicious-package"
+)
+-}}
+
+{{- $apps := list
+  "DaisyDisk -> 411643860"
+  "Keynote -> 409183694"
+  "Numbers -> 409203825"
+  "Pages -> 409201541"
+  "The Unarchiver -> 425424353"
+  "xScope -> 447661441"
+  "TabBack for Safari -> 1660506599"
+-}}
+
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end }}
+
+{{ range ($apps | sortAlpha | uniq) -}}
+{{- $app := split " -> " . -}}
+mas "{{ $app._0 }}", id: {{ $app._1 }}
+{{ end -}}
+
+{{- end -}}
