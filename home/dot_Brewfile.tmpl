@@ -55,6 +55,7 @@
 {{- $casks := list
   "1password"
   "1password-cli"
+  "alfred"
   "android-studio"
   "arq-cloud-backup"
   "betterdisplay"
@@ -66,13 +67,12 @@
   "fork"
   "google-chrome"
   "hammerspoon"
-  "handbrake"
   "hazel"
   "homerow"
-  "iina"
   "istat-menus"
   "iterm2"
   "jordanbaird-ice"
+  "keyboard-maestro"
   "karabiner-elements"
   "launchbar"
   "lm-studio"
@@ -86,7 +86,6 @@
   "superkey"
   "transmit"
   "visual-studio-code"
-  "vlc"
   "xcodes"
   "zed"
   "zoom"
@@ -98,6 +97,17 @@
 )
 -}}
 {{ end -}}
+
+{{/* Production */}}
+{{- $casks = concat $casks (list
+  "ableton-live-suite"
+  "handbrake"
+  "iina"
+  "obs"
+  "rekordbox"
+  "vcv-rack"
+  "vlc"
+) -}}
 
 {{/* Custom Fonts */}}
 {{- $casks = concat $casks (list
@@ -126,7 +136,6 @@
   "Numbers -> 409203825"
   "Pages -> 409201541"
   "The Unarchiver -> 425424353"
-  "xScope -> 447661441"
   "TabBack for Safari -> 1660506599"
 -}}
 
