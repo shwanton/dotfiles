@@ -14,6 +14,8 @@ setup '03. Install Homebrew Packages'
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# use --force to override any apps that were installed manually
+# brew bundle --force --no-lock --file ~/.Brewfile
 brew bundle --no-lock --file ~/.Brewfile
 
 {{- end -}}
