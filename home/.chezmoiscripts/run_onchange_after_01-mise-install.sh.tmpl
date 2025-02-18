@@ -1,0 +1,17 @@
+{{- if glob (joinPath .chezmoi.homeDir ".tool-versions") -}}
+#!/usr/bin/env bash
+
+# readonly script_name=run_onchange_after_01_mise-install.sh.tmpl
+# readonly lib_bash='{{ joinPath .chezmoi.workingTree "lib/lib.bash" }}'
+
+# shellcheck source=lib/lib.bash
+# source "${lib_bash}"
+# setup '03. Install Mise Packages'
+
+# Ensure this script runs on .tool-versions changes by including a hash of its file contents:
+# ~/.tool-versions: {{ include (joinPath .chezmoi.homeDir ".tool-versions") | sha256sum }}
+
+eval "$(mise activate zsh)"
+cd ~
+mise install
+{{- end -}}
