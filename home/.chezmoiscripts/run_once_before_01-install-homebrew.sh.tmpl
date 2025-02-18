@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+readonly script_name=run_once_before-01-install-homebrew.sh.tmpl
+readonly lib_bash='{{ joinPath .chezmoi.workingTree "lib/lib.bash" }}'
+# shellcheck source=lib/lib.bash
+source "${lib_bash}"
+setup '01: Install Homebrew'
+
+if has brew; then
+  exit 0
+fi
+
+HOMEBREW_PREFIX="/opt/homebrew"
+if [[ "$(uname -m)" != "arm64" ]]; then
+  HOMEBREW_PREFIX="/usr/local"
+fi
+
+if ! [[ -x "${HOMEBREW_PREFIX}"/bin/brew ]]; then
+  declare installer
+  installer="$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  if verbose; then
+    /bin/bash -c "${installer}"
+  else
+    /bin/bash -c "${installer}" >/dev/null 2>/dev/null
+  fi
+fi
+
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+chmod -R go-w "$(brew --prefix)/share" || true
