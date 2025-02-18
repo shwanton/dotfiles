@@ -1,0 +1,33 @@
+{{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
+{{- $work := false -}}{{/* true if this machine is a work machine */}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $computerName := output "scutil" "--get" "ComputerName" | trim -}}
+{{-   if eq $computerName "m4mbp" -}}
+{{-     $hostname = "m4mbp" -}}
+{{-   else -}}
+{{-     $hostname = $computerName -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if eq $hostname "m4mbp" -}}
+{{-   $personal = true -}}
+{{- else if eq $hostname "shawndempsey" -}}
+{{-   $work = true -}}
+{{- end -}}
+
+{{- $email := "shwanton@gmail.com" -}}
+{{- if $work -}}
+    {{- $email = "shawndempsey@meta.com" -}}
+{{- end -}}
+
+[data]
+    email = {{ $email | quote }}
+    work = {{ $work }}
+    hostname = {{ $hostname | quote }}
+    personal = {{ $personal }}
+
+[edit]
+    command = "code"
