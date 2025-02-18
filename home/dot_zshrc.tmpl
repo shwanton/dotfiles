@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "darwin" -}}
+fpath+=("$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions")
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+
+export PATH="$HOME/bin:$PATH"
