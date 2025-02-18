@@ -1,5 +1,4 @@
 {{- if glob (joinPath .chezmoi.homeDir ".Brewfile") -}}
-
 #!/usr/bin/env bash
 
 readonly script_name=run_onchange_after_00-brew-bundle.sh.tmpl
@@ -17,5 +16,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # use --force to override any apps that were installed manually
 # brew bundle --force --no-lock --file ~/.Brewfile
 brew bundle --no-lock --file ~/.Brewfile
-
 {{- end -}}

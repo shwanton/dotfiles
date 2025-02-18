@@ -1,5 +1,4 @@
 {{ if eq .chezmoi.os "darwin" -}}
-
 #!/usr/bin/env bash
 
 readonly script_name=run_once_before_00-prepare-system.sh.tmpl
@@ -7,7 +6,7 @@ readonly lib_bash='{{ joinPath .chezmoi.workingTree "lib/lib.bash" }}'
 
 # shellcheck source=lib/lib.bash
 source "${lib_bash}"
-setup '00: Prepare system'
+setup '00: Prepare XCode'
 
 read-xcode-license() {
   if [[ -f /Library/Preferences/com.apple.dt.Xcode.plist ]]; then
@@ -35,5 +34,4 @@ xcode_path="$(xcode-select --print-path)"
 if [[ -z "${xcode_path}" ]]; then
   xcode-select --install
 fi
-
 {{ end -}}
