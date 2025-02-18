@@ -2,6 +2,13 @@
 
 #!/usr/bin/env bash
 
+readonly script_name=run_once_before_00-prepare-system.sh.tmpl
+readonly lib_bash='{{ joinPath .chezmoi.workingTree "lib/lib.bash" }}'
+
+# shellcheck source=lib/lib.bash
+source "${lib_bash}"
+setup '00: Prepare system'
+
 read-xcode-license() {
   if [[ -f /Library/Preferences/com.apple.dt.Xcode.plist ]]; then
     defaults read /Library/Preferences/com.apple.dt.Xcode |
