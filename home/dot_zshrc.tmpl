@@ -1,6 +1,14 @@
 {{ if eq .chezmoi.os "darwin" -}}
+# Configure Path
+export PATH="$HOME/bin:$PATH"
+
+# Use Homebrew
 fpath+=("$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions")
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{{- end }}
 
-export PATH="$HOME/bin:$PATH"
+# Use mise
+eval "$(mise activate zsh)"
+
+# Set a simple prompt
+autoload colors && colors
+{{- end }}
