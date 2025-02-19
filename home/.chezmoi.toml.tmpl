@@ -1,3 +1,4 @@
+{{- $email := "shwanton@gmail.com" -}}{{/* default email */}}
 {{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
 {{- $work := false -}}{{/* true if this machine is a work machine */}}
 
@@ -5,29 +6,32 @@
 {{- $hostname := .chezmoi.hostname -}}
 {{- if eq .chezmoi.os "darwin" -}}
 {{-   $computerName := output "scutil" "--get" "ComputerName" | trim -}}
-{{-   if eq $computerName "m4mbp" -}}
-{{-     $hostname = "m4mbp" -}}
+{{-   if eq $computerName "shwanton-m4mbp" -}}
+{{-     $hostname = "shwanton-m4mbp" -}}
+{{-   else if eq $computerName "shawndempsey-mac" -}}
+{{-     $hostname = "shawndempsey-mac" -}}
 {{-   else -}}
 {{-     $hostname = $computerName -}}
 {{-   end -}}
 {{- end -}}
 
-{{- if eq $hostname "m4mbp" -}}
+{{- if eq $hostname "shwanton-m4mbp" -}}
 {{-   $personal = true -}}
-{{- else if eq $hostname "shawndempsey" -}}
+{{-   $work = false -}}
+{{- else if eq $hostname "shawndempsey-mac" -}}
+{{-   $personal = false -}}
 {{-   $work = true -}}
 {{- end -}}
 
-{{- $email := "shwanton@gmail.com" -}}
 {{- if $work -}}
     {{- $email = "shawndempsey@meta.com" -}}
 {{- end -}}
 
 [data]
     email = {{ $email | quote }}
-    work = {{ $work }}
     hostname = {{ $hostname | quote }}
     personal = {{ $personal }}
+    work = {{ $work }}
 
 [edit]
-    command = "code"
+    command = "vim"

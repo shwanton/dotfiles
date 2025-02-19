@@ -98,16 +98,23 @@
 -}}
 {{ end -}}
 
-{{/* Production */}}
+{{/* Audio Production */}}
 {{- $casks = concat $casks (list
   "ableton-live-suite"
+  "rekordbox"
+  "vlc"
+) -}}
+
+{{/* Video Production */}}
+{{- $casks = concat $casks (list
+  "camo-studio"
+  "elgato-camera-hub"
   "handbrake"
   "iina"
   "obs"
-  "rekordbox"
-  "vcv-rack"
   "vlc"
 ) -}}
+
 
 {{/* Custom Fonts */}}
 {{- $casks = concat $casks (list

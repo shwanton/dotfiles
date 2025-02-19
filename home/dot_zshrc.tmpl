@@ -1,14 +1,35 @@
 {{ if eq .chezmoi.os "darwin" -}}
+
+stty -ixon
+
+# add local bin to path
+export PATH=${PATH}:~/.bin
+export PATH=${PATH}:~/.local/bin
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/shawndempsey/.cache/lm-studio/bin"
+
 # Configure Path
 export PATH="$HOME/bin:$PATH"
 
-# Use Homebrew
+# Set a simple prompt
+autoload colors && colors
+
+# Homebrew autocompletions
 fpath+=("$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions")
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Use mise
+export PATH="$HOME/bin:$PATH"
+# Mise-en-place support
+# https://mise.jdx.dev/getting-started.html#_2-activate-mise
+# eval "$(~/.local/bin/mise activate zsh)"
 eval "$(mise activate zsh)"
 
-# Set a simple prompt
-autoload colors && colors
+# added by setup_fb4a.sh
+export ANDROID_SDK=/opt/android_sdk
+export ANDROID_NDK_REPOSITORY=/opt/android_ndk
+export ANDROID_HOME=${ANDROID_SDK}
+export JAVA_HOME="$(/usr/libexec/java_home -v 11)"
+export PATH=${PATH}:${ANDROID_SDK}/emulator:${ANDROID_SDK}/tools:${ANDROID_SDK}/tools/bin:${ANDROID_SDK}/platform-tools
+
 {{- end }}

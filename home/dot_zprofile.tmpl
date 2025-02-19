@@ -4,4 +4,8 @@
 fpath+=("$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions")
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+{{ if .work -}}
+    alias yarn="~/fbsource/xplat/third-party/yarn/yarn"
+{{ end -}}
+
 {{- end }}
