@@ -1,111 +1,106 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 
-{{- $taps := list
--}}
+{{- $taps := list -}}
 
 {{- $brews := list
-  "ack"
-  "cloc"
   "direnv"
   "duti"
-  "eza"
-  "ffmpeg"
   "gh"
-  "git"
-  "helix"
-  "httpie"
   "imagemagick"
-  "jq"
   "mise"
-  "moreutils"
-  "overmind"
-  "pspg"
-  "lazygit"
-  "lf"
   "shellcheck"
   "tree"
-  "wget"
+  "moreutils"
+  "jq"
   "yarn"
 -}}
 
-{{/* Dependencies for building ruby via mise */}}
+{{/* System Overrides */}}
 {{- $brews = concat $brews (list
-  "libyaml"
+  "ack"
+  "eza"
+  "curl"
+  "wget"
+  "git"
+  "rg"
 )
 -}}
 
-{{/* Dependencies for building postgres via mise */}}
+{{/* Build tools */}}
 {{- $brews = concat $brews (list
-  "curl"
+  "cmake"
   "gcc"
-  "icu4c"
-  "ossp-uuid"
+  "libyaml"
   "readline"
   "zlib"
 )
 -}}
 
-{{ if true -}}
+{{ if .personal -}}
 {{- $brews = concat $brews (list
   "yt-dlp"
+  "ffmpeg"
 )
 -}}
 {{ end -}}
 
 {{- $casks := list
-  "1password"
-  "1password-cli"
   "alfred"
-  "android-studio"
-  "arq-cloud-backup"
   "betterdisplay"
   "chatgpt"
   "cleanshot"
   "discord"
-  "dropbox"
   "firefox"
   "fork"
-  "google-chrome"
   "hammerspoon"
   "hazel"
   "homerow"
   "istat-menus"
   "iterm2"
   "jordanbaird-ice"
-  "keyboard-maestro"
   "karabiner-elements"
+  "keyboard-maestro"
   "launchbar"
-  "lm-studio"
   "little-snitch"
+  "lm-studio"
   "ngrok"
-  "numi"
   "obsidian"
   "pika"
   "raycast"
   "rectangle-pro"
   "superkey"
-  "transmit"
   "visual-studio-code"
   "xcodes"
   "zed"
   "zoom"
 -}}
 
-{{ if true -}}
+{{ if .personal -}}
 {{- $casks = concat $casks (list
+  "1password"
+  "1password-cli"
+  "android-studio"
+  "arq-cloud-backup"
+  "dropbox"
+  "google-chrome"
+  "numi"
   "transmission"
+  "transmit"
 )
 -}}
 {{ end -}}
 
 {{/* Audio Production */}}
+{{ if .personal -}}
 {{- $casks = concat $casks (list
   "ableton-live-suite"
   "rekordbox"
   "vlc"
 ) -}}
+{{ end -}}
 
 {{/* Video Production */}}
+{{ if .personal -}}
 {{- $casks = concat $casks (list
   "camo-studio"
   "elgato-camera-hub"
@@ -114,7 +109,7 @@
   "obs"
   "vlc"
 ) -}}
-
+{{ end -}}
 
 {{/* Custom Fonts */}}
 {{- $casks = concat $casks (list
@@ -138,13 +133,18 @@
 -}}
 
 {{- $apps := list
-  "DaisyDisk -> 411643860"
   "Keynote -> 409183694"
   "Numbers -> 409203825"
   "Pages -> 409201541"
-  "The Unarchiver -> 425424353"
-  "TabBack for Safari -> 1660506599"
 -}}
+
+{{ if .personal -}}
+{{- $apps = concat $apps (list
+  "DaisyDisk -> 411643860"
+  "TabBack for Safari -> 1660506599"
+  "The Unarchiver -> 425424353"
+) -}}
+{{ end -}}
 
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
@@ -164,3 +164,5 @@ mas "{{ $app._0 }}", id: {{ $app._1 }}
 {{ end -}}
 
 {{- end -}}
+
+
