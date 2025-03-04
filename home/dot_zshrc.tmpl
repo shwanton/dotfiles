@@ -1,6 +1,17 @@
 {{ if eq .chezmoi.os "darwin" -}}
 stty -ixon
 
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
+# Enable vim editing to ^v
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^V' edit-command-line
+
+# Editor
+export EDITOR=vim
+
 # add local bin to path
 export PATH=${PATH}:~/.bin
 export PATH=${PATH}:~/.local/bin
@@ -22,5 +33,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Mise-en-place support
 # https://mise.jdx.dev/getting-started.html#_2-activate-mise
 eval "$(~/.local/bin/mise activate zsh)"
+
+# Buck Autocompletions
+# source ~/fbsource/tools/buck/completion.bash
+source /etc/bash_completion.d/buck-fbsource.bash
 
 {{- end }}
